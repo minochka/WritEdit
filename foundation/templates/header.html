@@ -1,0 +1,21 @@
+{% load static %}
+<nav>
+
+	<h1 class="nav_ico"><a href="{% url 'home' %}">HEADER</a></h1>
+
+	{% if user.is_authenticated %}
+	<div class="dropdown">
+		<button class="dropdbtn">
+			<img src="{% static 'icon/outline_24.png' %}">
+		</button>
+
+		<div class="dropdown_content">
+			<a href="{% url 'settingi'%}">Настройки</a>
+			<a href="{% url 'logout'%}">Выход</a>
+		</div>
+	</div>
+	{% endif %}
+
+    
+
+</nav>

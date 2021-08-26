@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"> 
+<head>   
+    <meta charset="UTF-8">
+    <title>HEADER</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/posts.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+	<content>
+
+        <div class="comment_poly">
+            <div class="post_title">
+
+                {% if user.userprofile.avatar %}
+                    <img class="list_avatar" src="{{ user.userprofile.avatar.url }}">
+                {% else %}
+                    <img class="list_avatar" src="{% static 'default.png' %}">
+                {% endif %}
+
+                <p class="user">{{ user.username }}</p>
+                <small class="date">{{ posts_detail.created }}</small>
+                <a class="basket" href="{% url 'delete' posts_detail.id %}">Удалить</a>
+            </div>
+            
+            <div class="sam_text">
+                <p class="title">{{ posts_detail.title }}</p>
+                <p class="descriptoinos">{{ posts_detail.descriptoinos|slice:":300" }}</p>
+            </div>
+            
+            <div class="reactshion">
+                <p class="col_like">{{ posts_detail.liks }}</p>
+                <a class="like" href="{% url 'like' posts_detail.id %}"><img src="{% static 'icon/plus.png' %}"></a>
+
+                <p class="col_com">{{ posts_detail.col_comment }}</p>
+                <img class="img_com" src="{% static 'icon/comment.png' %}">
+
+                <a class="dislike" href="{% url 'dislike' posts_detail.id %}"><img src="{% static 'icon/minus.png' %}"></a>
+            </div>
+        </div>
+        
+        <form class="comment_input" method="POST">
+            {% csrf_token %}
+                {% if user.userprofile.avatar %}
+
+                <img class="min_avatar" src="{{ user.userprofile.avatar.url }}">
+                {% else %}
+                    <img class="min_avatar" src="{% static 'default.png' %}">
+                {% endif %}  
+            <div>
+                <textarea name="text" id="text" placeholder="Коментарий"></textarea>
+
+            </div>
+            <button type="submit">Сохранить</button>
+        </form>
+
+        <div class="comments">
+            
+            {% for comment in comments %}
+
+            <div class="commentiki">
+
+                <div class="post_title">
+                        {% for user in users %}
+
+                        {% if user.userprofile.avatar %}
+
+                            <img class="list_avatar" src="{{ user.userprofile.avatar.url }}">
+
+                        {% else %}
+
+                            <img class="list_avatar" src="{% static 'default.png' %}">
+                            
+                        {% endif %}
+
+                        {% endfor %}
+                        <p class="user">{{ comment.user }}</p>
+                        <small class="date">{{ comment.created }}</small>
+                    </div>
+                    
+                    <div class="sam_text">
+                        <p class="title">{{ comment.text }}</p>
+                    </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </content>
+
+    {% include 'footer.html' %}
+</body>
+</html> 

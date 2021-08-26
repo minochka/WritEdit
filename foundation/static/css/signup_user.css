@@ -1,0 +1,100 @@
+@font-face {
+	font-family: Montserrat-Light;
+	src: url('font-family/Montserrat-Light.ttf');
+}
+
+body {
+	font-family: Montserrat-Light;
+	background-color: #D0D0D0;
+	display: grid;
+	grid-template-areas: 
+		"nav"
+		"form"
+		"hep"
+		"footer";
+}
+
+nav {
+	grid-area: nav;
+}
+
+	form {
+		grid-area: form;
+
+		margin-top: 8%;
+		margin-bottom: 5%;
+		margin-left: 30%;
+		margin-right: 30%;
+		color: #1B1B1B;
+		background-color: #FFFFFF;
+
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"ha ha"
+			"poly poly"
+			"button button";
+
+	}
+		h1 {
+			grid-area: ha;
+			text-align: center;
+		}
+
+		.poly {
+			grid-area: poly;
+
+			display: grid;
+			grid-template-areas: 
+				"username"
+				"pass1"
+				"pass2"
+				"but";
+		}
+
+			.username {
+				grid-area: username;
+			}
+
+			.password1 {
+				grid-area: pass1;
+			}
+
+			.password2 {
+				grid-area: pass2;
+			}
+
+			.button {
+				grid-area: but;
+			}
+
+		input {
+			height: 40px;
+			border: none;
+			outline: none;
+			text-align: center;
+		}
+
+		input::placeholder {
+			text-align: center;
+		}
+
+		button {
+			height: 300%;
+			grid-area: button;
+			background-color: #318CE7;
+			color: #FFFFFF;
+			border: none;
+			grid-area: butt;
+		}
+
+.help {
+	grid-area: hep;
+
+	text-align: center;
+	margin-bottom: 4%;
+}
+
+footer {
+	grid-area: footer;
+}

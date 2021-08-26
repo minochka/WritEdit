@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">  
+    <title>HEADER</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <div class="informat">
+
+        {% for user in users %}
+
+            {% if user.userprofile.avatar %}
+
+                <img class="avatar" src="{{ user.userprofile.avatar.url }}">
+
+            {% else %}
+
+                <img class="avatar" src="{% static 'default.png' %}">
+                
+            {% endif %}
+
+            <h1>{{ user.username }}</h1>
+
+        {% endfor %} 
+    </div>
+
+	<content>
+
+        <figure>
+            <a href="{% url 'people_list'%}"><h1>Братья и сестры</h1></a>
+            <div class="people">    
+
+                {% for peopl in people %}
+                    <a href="{% url 'people_detail' peopl.id %}">
+                        <div class="peopl">
+
+                            {% if peopl.userprofile.avatar %}
+                            <img class="min_img" src="{{ peopl.userprofile.avatar.url }}">
+                            {% else %}
+                            <img class="min_img" src="{% static 'default.png' %}">
+                            {% endif %}
+
+                            <p class="username">{{ peopl.username }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+
+            </div>
+        </figure>
+ 
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for user in users %}
+
+                {% if user.userprofile.avatar %}
+
+                <img class="min_avatar" src="{{ user.userprofile.avatar.url }}">
+
+                {% else %}
+
+                    <img class="min_avatar" src="{% static 'default.png' %}">
+                    
+                {% endif %} 
+ 
+            {% endfor %} 
+
+            <div>
+                <input type="text" name="title" id="title" placeholder="Название" required>
+            </div>
+            <div>
+                <textarea name="descriptoinos" id="descriptoinos" placeholder="Текст"></textarea>
+            </div>
+            <button type="submit">Сохранить</button>
+        </form>
+
+        <div class="posts">
+
+            {% for post in posts %}
+            <a href="{% url 'posts_detail' post.id %}">
+                <div class="post">
+                    
+                    <div class="post_title">
+                        {% for user in users %}
+
+                        {% if user.userprofile.avatar %}
+
+                            <img class="list_avatar" src="{{ user.userprofile.avatar.url }}">
+
+                        {% else %}
+
+                            <img class="list_avatar" src="{% static 'default.png' %}">
+                            
+                        {% endif %}
+
+                        <p class="user">{{ user.username }}</p>
+                        {% endfor %}
+                        <small class="date">{{ post.created }}</small>
+                    </div>
+                    
+                    <div class="sam_text">
+                        <p class="title">{{ post.title }}</p>
+                        <p class="descriptoinos">{{ post.descriptoinos|slice:":300" }}</p>
+                    </div>
+                    
+                    <div class="reactshion">
+                        <p class="col_like">{{ post.liks }}</p>
+                        <a class="like" href="{% url 'like' post.id %}"><img src="{% static 'icon/plus.png' %}"></a>
+
+                        <p class="col_com">{{ post.col_comment }}</p>
+                        <img class="img_com" src="{% static 'icon/comment.png' %}">
+
+                        <a class="dislike" href="{% url 'dislike' post.id %}"><img src="{% static 'icon/minus.png' %}"></a>
+                    </div>
+                    
+                </div>
+            </a>
+            {% endfor %}
+
+        </div>
+
+    </content>
+    {% include 'footer.html' %}
+</body>
+</html>

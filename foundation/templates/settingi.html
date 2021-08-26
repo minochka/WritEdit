@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head> 
+	<title>SETTINGS</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/settingi.css' %}">
+</head>
+</head>
+<body>
+	{% include 'header.html' %}
+
+	<content>
+		
+		<form method="POST">
+            {% csrf_token %}
+            <input type="file" name="avatar" id="avatar">
+            <input type="text" name="status" id="status" placeholder="Статаус"></input>
+            <button type="submit">Сохранить</button>
+        </form>
+
+	</content>
+
+	{% include 'footer.html' %} 
+</body>
+</html>
